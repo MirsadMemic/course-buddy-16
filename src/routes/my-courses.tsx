@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { supabase } from "@/lib/supabase";
@@ -26,7 +27,7 @@ export const Route = createFileRoute("/my-courses")({
   ),
 });
 
-type EnrollmentRow = { id: string; courses: Course | null };
+type EnrollmentRow = { id: string; completed_at: string | null; courses: Course | null };
 
 function MyCoursesPage() {
   const { user } = useAuth();
@@ -37,7 +38,7 @@ function MyCoursesPage() {
     queryFn: async (): Promise<EnrollmentRow[]> => {
       const { data, error } = await supabase
         .from("enrollments")
-        .select("id, courses(id, title, description, instructor, duration)")
+        .select("id, completed_at, courses(id, title, description, instructor, duration)")
         .eq("user_id", user!.id)
         .order("created_at", { ascending: false });
       if (error) throw error;
@@ -57,6 +58,23 @@ function MyCoursesPage() {
     },
     onError: (error: Error) => toast.error("Greška pri odjavi: " + error.message),
   });
+
+  const toggleComplete = useMutation({
+    mutationFn: async ({ id, completed }: { id: string; completed: boolean }) => {
+      const { error } = await supabase
+        .from("enrollments")
+        .update({ completed_at: completed ? new Date().toISOString() : null })
+        .eq("id", id);
+      if (error) throw error;
+      return completed;
+    },
+    onSuccess: (completed) => {
+      toast.success(completed ? "Kurs je označen kao završen." : "Oznaka završetka je uklonjena.");
+      queryClient.invalidateQueries({ queryKey: ["my-enrollments"] });
+    },
+    onError: (error: Error) => toast.error("Greška: " + error.message),
+  });
+
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
@@ -88,15 +106,33 @@ function MyCoursesPage() {
                 key={row.id}
                 course={row.courses}
                 action={
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    disabled={unenroll.isPending}
-                    onClick={() => unenroll.mutate(row.id)}
-                  >
-                    Odjavi se sa kursa
-                  </Button>
+                  <div className="flex w-full flex-col gap-2">
+                    {row.completed_at ? (
+                      <p className="inline-flex items-center gap-2 text-sm font-medium text-primary">
+                        <CheckCircle2 className="size-4" /> Kurs završen
+                      </p>
+                    ) : null}
+                    <Button
+                      className="w-full"
+                      variant={row.completed_at ? "secondary" : "default"}
+                      disabled={toggleComplete.isPending}
+                      onClick={() =>
+                        toggleComplete.mutate({ id: row.id, completed: !row.completed_at })
+                      }
+                    >
+                      {row.completed_at ? "Poništi završetak" : "Označi kao završen"}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      disabled={unenroll.isPending}
+                      onClick={() => unenroll.mutate(row.id)}
+                    >
+                      Odjavi se sa kursa
+                    </Button>
+                  </div>
                 }
+
               />
             ) : null,
           )}
