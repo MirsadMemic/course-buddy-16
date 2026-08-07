@@ -8,7 +8,7 @@ CourseTrack – Evidencija kurseva i polaznika
 
 Cilj aplikacije
 
-Aplikacija treba da omogući korisnicima da se registruju i prijave, pregledaju dostupne kurseve i izaberu kurseve koje žele da pohađaju. Takođe treba da postoji stranica sa pregledom svih registrovanih korisnika, gde se klikom na određenog korisnika mogu videti kursevi koje je taj polaznik izabrao.
+Aplikacija treba da omogući korisnicima da se registruju i prijave, pregledaju dostupne kurseve i izaberu kurseve koje žele da pohađaju. 
 
 Aplikacija treba da bude dovoljno jednostavna za studentski projekat, ali da bude potpuno funkcionalna i da demonstrira rad React frontend aplikacije sa Supabase backend servisom i PostgreSQL bazom podataka.
 
