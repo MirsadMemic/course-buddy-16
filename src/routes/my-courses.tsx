@@ -106,15 +106,33 @@ function MyCoursesPage() {
                 key={row.id}
                 course={row.courses}
                 action={
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    disabled={unenroll.isPending}
-                    onClick={() => unenroll.mutate(row.id)}
-                  >
-                    Odjavi se sa kursa
-                  </Button>
+                  <div className="flex w-full flex-col gap-2">
+                    {row.completed_at ? (
+                      <p className="inline-flex items-center gap-2 text-sm font-medium text-primary">
+                        <CheckCircle2 className="size-4" /> Kurs završen
+                      </p>
+                    ) : null}
+                    <Button
+                      className="w-full"
+                      variant={row.completed_at ? "secondary" : "default"}
+                      disabled={toggleComplete.isPending}
+                      onClick={() =>
+                        toggleComplete.mutate({ id: row.id, completed: !row.completed_at })
+                      }
+                    >
+                      {row.completed_at ? "Poništi završetak" : "Označi kao završen"}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      disabled={unenroll.isPending}
+                      onClick={() => unenroll.mutate(row.id)}
+                    >
+                      Odjavi se sa kursa
+                    </Button>
+                  </div>
                 }
+
               />
             ) : null,
           )}
