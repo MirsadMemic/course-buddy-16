@@ -1,342 +1,78 @@
-# Course Connect
+# 🎓 CourseTrack
+## 📸 Screenshot
 
-Kreiraj jednostavnu, modernu i funkcionalnu React web aplikaciju koja predstavlja MVP (Minimum Viable Product) za evidenciju kurseva i polaznika.
+![CourseTrack Screenshot](./screenshot1.png)
 
-Naziv aplikacije
+Moderna web aplikacija za upravljanje kursevima i polaznicima, izrađena pomoću **Reacta, TypeScripta i Supabasea**.
 
-CourseTrack – Evidencija kurseva i polaznika
+Aplikacija omogućava korisnicima da kreiraju nalog, prijave se, pregledaju dostupne kurseve i upravljaju svojim prijavama.
 
-Cilj aplikacije
+## 🚀 Live Demo
 
-Aplikacija treba da omogući korisnicima da se registruju i prijave, pregledaju dostupne kurseve i izaberu kurseve koje žele da pohađaju. 
+🔗 https://course-buddy-16.lovable.app
 
-Aplikacija treba da bude dovoljno jednostavna za studentski projekat, ali da bude potpuno funkcionalna i da demonstrira rad React frontend aplikacije sa Supabase backend servisom i PostgreSQL bazom podataka.
+## ✨ Funkcionalnosti
 
-Tehnologije
+* Registracija i prijava korisnika
+* Pregled dostupnih kurseva
+* Prijava na kurs
+* Odjava sa kursa
+* Pregled vlastitih kurseva
+* Pregled registrovanih korisnika
+* Detalji korisnika i njihovih kurseva
+* Protected routes
+* Responsive dizajn
+* Validacija formi i prikaz grešaka
 
-Koristi:
+## 🛠️ Tech Stack
 
-React
+**Frontend**
 
-JavaScript
+React • TypeScript • Vite • React Router
 
-React Router za navigaciju između stranica
+**Backend & Database**
 
-Supabase za backend
+Supabase • PostgreSQL • Supabase Authentication
 
-Supabase Authentication za registraciju i prijavu korisnika
+**Tools**
 
-Supabase PostgreSQL bazu podataka
+Git • GitHub • VS Code
 
-CSS ili jednostavan UI framework po izboru za moderan i pregledan dizajn
+## 📸 Preview
 
-Kod treba da bude organizovan kroz komponente i da bude lak za čitanje i dalje proširivanje.
+![CourseTrack Preview](./screenshot.png)
 
-Glavne funkcionalnosti
+## 💡 O projektu
 
-1. Registracija korisnika
+CourseTrack je razvijen kao praktičan full-stack web projekat sa glavnim fokusom na frontend development.
 
-Napraviti stranicu Register sa formom koja sadrži:
+Kroz projekat sam radio sa React komponentama, routingom, autentifikacijom korisnika, bazom podataka i povezivanjem frontend aplikacije sa Supabase backend servisom.
 
-ime i prezime
+## ⚙️ Pokretanje lokalno
 
-email adresu
-
-lozinku
-
-potvrdu lozinke
-
-Registraciju realizovati pomoću Supabase Authentication.
-
-Nakon uspešne registracije, osnovne informacije o korisniku sačuvati i u posebnoj tabeli profiles.
-
-Prikazati odgovarajuću poruku ako registracija nije uspešna.
-
-2. Prijava korisnika
-
-Napraviti stranicu Login sa poljima:
-
-email
-
-lozinka
-
-Prijavu realizovati preko Supabase Authentication sistema.
-
-Nakon uspešnog logovanja korisnika preusmeriti na početnu stranicu ili stranicu sa kursevima.
-
-Dodati mogućnost Logout.
-
-3. Početna stranica
-
-Napraviti jednostavan dashboard sa kratkim opisom aplikacije i navigacijom ka:
-
-Kursevima
-
-Korisnicima
-
-Mojim kursevima
-
-Profilu korisnika
-
-Prikazati ime trenutno prijavljenog korisnika.
-
-4. Dostupni kursevi
-
-Napraviti stranicu Courses koja prikazuje sve dostupne kurseve iz Supabase baze.
-
-Za svaki kurs prikazati:
-
-naziv kursa
-
-kratak opis
-
-predavača
-
-trajanje kursa
-
-Primer kurseva:
-
-React osnove
-
-JavaScript za početnike
-
-Web dizajn
-
-SQL i baze podataka
-
-Git i GitHub
-
-Svaki kurs treba da ima dugme:
-
-„Prijavi se na kurs“
-
-Klikom na dugme kreira se veza između trenutno prijavljenog korisnika i izabranog kursa.
-
-Ako je korisnik već prijavljen na kurs, umesto dugmeta za prijavu prikazati informaciju:
-
-„Već ste prijavljeni“
-
-5. Moji kursevi
-
-Napraviti stranicu My Courses na kojoj prijavljeni korisnik može da vidi samo kurseve koje je izabrao.
-
-Za svaki kurs prikazati osnovne podatke.
-
-Omogućiti i opciju:
-
-„Odjavi se sa kursa“
-
-kojom se briše odgovarajuća prijava iz baze.
-
-6. Pregled svih korisnika
-
-Napraviti stranicu Users koja prikazuje sve registrovane korisnike.
-
-Za svakog korisnika prikazati:
-
-ime i prezime
-
-email
-
-Ime korisnika treba da bude klikabilno.
-
-Klikom na ime otvoriti stranicu:
-
-/users/:id
-
-7. Detalji korisnika
-
-Na stranici pojedinačnog korisnika prikazati:
-
-ime i prezime korisnika
-
-email
-
-spisak kurseva koje je korisnik izabrao
-
-Ako korisnik nema izabrane kurseve, prikazati poruku:
-
-„Korisnik trenutno nije prijavljen ni na jedan kurs.“
-
-Predlog baze podataka
-
-Kreirati sledeće tabele u Supabase PostgreSQL bazi.
-
-profiles
-
-Kolone:
-
-id – UUID, primary key, povezan sa auth.users.id
-
-full_name – text
-
-email – text
-
-created_at – timestamp
-
-courses
-
-Kolone:
-
-id – UUID ili bigint, primary key
-
-title – text
-
-description – text
-
-instructor – text
-
-duration – text
-
-created_at – timestamp
-
-enrollments
-
-Tabela predstavlja vezu između korisnika i kurseva.
-
-Kolone:
-
-id – UUID ili bigint, primary key
-
-user_id – foreign key prema profiles.id
-
-course_id – foreign key prema courses.id
-
-created_at – timestamp
-
-Jedan korisnik može biti prijavljen na više kurseva, a jedan kurs može imati više polaznika.
-
-Potrebno je sprečiti duplu prijavu istog korisnika na isti kurs, na primer UNIQUE ograničenjem nad kombinacijom user_id i course_id.
-
-Navigacija
-
-Napraviti zajednički Navbar sa stavkama:
-
-Home
-
-Courses
-
-My Courses
-
-Users
-
-Logout
-
-Ako korisnik nije prijavljen, prikazivati:
-
-Login
-
-Register
-
-Za stranice koje zahtevaju prijavljenog korisnika koristiti protected routes.
-
-Dizajn
-
-Interfejs treba da bude:
-
-jednostavan
-
-moderan
-
-responzivan
-
-pregledan
-
-prilagođen desktop i mobilnim uređajima
-
-Koristi kartice za prikaz kurseva i korisnika.
-
-Forme treba da imaju jasne labele, validaciju i poruke o greškama.
-
-Dodati loading stanje dok se podaci učitavaju iz baze.
-
-Prikazati jasne success/error poruke nakon akcija kao što su registracija, prijava na kurs ili odjava sa kursa.
-
-Supabase integracija
-
-Kreirati poseban fajl za konfiguraciju Supabase klijenta, na primer:
-
-src/lib/supabase.js
-
-Koristiti environment promenljive:
-
-VITE_SUPABASE_URL
-
-VITE_SUPABASE_ANON_KEY
-
-Nemoj hardkodovati Supabase ključeve direktno u kod.
-
-Koristi Supabase za:
-
-registraciju korisnika
-
-login/logout
-
-proveru trenutno prijavljenog korisnika
-
-čitanje podataka
-
-dodavanje podataka
-
-brisanje podataka
-
-povezivanje korisnika sa kursevima
-
-Struktura aplikacije
-
-Organizuj projekat približno ovako:
-
-src/components
-
-Navbar
-
-CourseCard
-
-UserCard
-
-ProtectedRoute
-
-src/pages
-
-Home
-
-Login
-
-Register
-
-Courses
-
-MyCourses
-
-Users
-
-UserDetails
-
-src/lib
-
-supabase.js
-
-Dodaj i potrebne pomoćne fajlove po potrebi.
-
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://course-buddy-16.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/1ccb154d-f4c8-4f7b-883d-06f532882a24).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+```bash
+git clone https://github.com/MirsadMemic/course-buddy-16.git
+cd course-buddy-16
+npm install
 npm run dev
 ```
+
+## 🎯 Šta sam naučio
+
+* Organizacija React aplikacije kroz komponente
+* Rad sa TypeScriptom
+* React Router i protected routes
+* Autentifikacija korisnika
+* Rad sa Supabase API-jem
+* Rad sa PostgreSQL bazom
+* Responsive frontend dizajn
+* Git i GitHub workflow
+
+---
+
+### 👨‍💻 Autor
+
+**Mirsad Memić**
+
+Frontend Developer fokusiran na React, TypeScript i moderne web tehnologije.
+
