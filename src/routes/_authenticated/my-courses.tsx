@@ -5,12 +5,11 @@ import { toast } from "sonner";
 
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { CourseCard, type Course } from "@/components/CourseCard";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const Route = createFileRoute("/my-courses")({
+export const Route = createFileRoute("/_authenticated/my-courses")({
   ssr: false,
   head: () => ({
     meta: [
@@ -20,11 +19,7 @@ export const Route = createFileRoute("/my-courses")({
       { property: "og:description", content: "Kursevi na koje ste prijavljeni." },
     ],
   }),
-  component: () => (
-    <ProtectedRoute>
-      <MyCoursesPage />
-    </ProtectedRoute>
-  ),
+  component: MyCoursesPage,
 });
 
 type EnrollmentRow = { id: string; completed_at: string | null; courses: Course | null };

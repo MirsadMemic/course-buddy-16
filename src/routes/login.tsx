@@ -31,7 +31,7 @@ function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (user) navigate({ to: "/courses", replace: true });
+    if (user) navigate({ to: "/", replace: true });
   }, [user, navigate]);
 
   async function handleSubmit(event: React.FormEvent) {

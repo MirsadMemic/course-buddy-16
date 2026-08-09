@@ -9,22 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as MyCoursesRouteImport } from './routes/my-courses'
 import { Route as RegisterRouteImport } from './routes/register'
-import { Route as UsersIndexRouteImport } from './routes/users.index'
-import { Route as UsersIdRouteImport } from './routes/users.$id'
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedCoursesRouteImport } from './routes/_authenticated/courses'
+import { Route as AuthenticatedMyCoursesRouteImport } from './routes/_authenticated/my-courses'
+import { Route as AuthenticatedUsersIndexRouteImport } from './routes/_authenticated/users.index'
+import { Route as AuthenticatedUsersIdRouteImport } from './routes/_authenticated/users.$id'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CoursesRoute = CoursesRouteImport.update({
-  id: '/courses',
-  path: '/courses',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -32,109 +27,110 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MyCoursesRoute = MyCoursesRouteImport.update({
-  id: '/my-courses',
-  path: '/my-courses',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UsersIndexRoute = UsersIndexRouteImport.update({
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCoursesRoute = AuthenticatedCoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMyCoursesRoute = AuthenticatedMyCoursesRouteImport.update({
+  id: '/my-courses',
+  path: '/my-courses',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedUsersIndexRoute = AuthenticatedUsersIndexRouteImport.update({
   id: '/users/',
   path: '/users/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const UsersIdRoute = UsersIdRouteImport.update({
+const AuthenticatedUsersIdRoute = AuthenticatedUsersIdRouteImport.update({
   id: '/users/$id',
   path: '/users/$id',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/courses': typeof CoursesRoute
+  '/': typeof AuthenticatedIndexRoute
   '/login': typeof LoginRoute
-  '/my-courses': typeof MyCoursesRoute
   '/register': typeof RegisterRoute
-  '/users/$id': typeof UsersIdRoute
-  '/users/': typeof UsersIndexRoute
+  '/courses': typeof AuthenticatedCoursesRoute
+  '/my-courses': typeof AuthenticatedMyCoursesRoute
+  '/users/$id': typeof AuthenticatedUsersIdRoute
+  '/users/': typeof AuthenticatedUsersIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/courses': typeof CoursesRoute
   '/login': typeof LoginRoute
-  '/my-courses': typeof MyCoursesRoute
   '/register': typeof RegisterRoute
-  '/users/$id': typeof UsersIdRoute
-  '/users': typeof UsersIndexRoute
+  '/courses': typeof AuthenticatedCoursesRoute
+  '/my-courses': typeof AuthenticatedMyCoursesRoute
+  '/': typeof AuthenticatedIndexRoute
+  '/users/$id': typeof AuthenticatedUsersIdRoute
+  '/users': typeof AuthenticatedUsersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/courses': typeof CoursesRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/login': typeof LoginRoute
-  '/my-courses': typeof MyCoursesRoute
   '/register': typeof RegisterRoute
-  '/users/$id': typeof UsersIdRoute
-  '/users/': typeof UsersIndexRoute
+  '/_authenticated/courses': typeof AuthenticatedCoursesRoute
+  '/_authenticated/my-courses': typeof AuthenticatedMyCoursesRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/users/$id': typeof AuthenticatedUsersIdRoute
+  '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/courses'
     | '/login'
-    | '/my-courses'
     | '/register'
+    | '/courses'
+    | '/my-courses'
     | '/users/$id'
     | '/users/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
-    | '/courses'
     | '/login'
-    | '/my-courses'
     | '/register'
+    | '/courses'
+    | '/my-courses'
+    | '/'
     | '/users/$id'
     | '/users'
   id:
     | '__root__'
-    | '/'
-    | '/courses'
+    | '/_authenticated'
     | '/login'
-    | '/my-courses'
     | '/register'
-    | '/users/$id'
-    | '/users/'
+    | '/_authenticated/courses'
+    | '/_authenticated/my-courses'
+    | '/_authenticated/'
+    | '/_authenticated/users/$id'
+    | '/_authenticated/users/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  CoursesRoute: typeof CoursesRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   LoginRoute: typeof LoginRoute
-  MyCoursesRoute: typeof MyCoursesRoute
   RegisterRoute: typeof RegisterRoute
-  UsersIdRoute: typeof UsersIdRoute
-  UsersIndexRoute: typeof UsersIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/courses': {
-      id: '/courses'
-      path: '/courses'
-      fullPath: '/courses'
-      preLoaderRoute: typeof CoursesRouteImport
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -144,13 +140,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/my-courses': {
-      id: '/my-courses'
-      path: '/my-courses'
-      fullPath: '/my-courses'
-      preLoaderRoute: typeof MyCoursesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/register': {
       id: '/register'
       path: '/register'
@@ -158,31 +147,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/users/': {
-      id: '/users/'
+    '/_authenticated/': {
+      id: '/_authenticated/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/courses': {
+      id: '/_authenticated/courses'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof AuthenticatedCoursesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/my-courses': {
+      id: '/_authenticated/my-courses'
+      path: '/my-courses'
+      fullPath: '/my-courses'
+      preLoaderRoute: typeof AuthenticatedMyCoursesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/users/': {
+      id: '/_authenticated/users/'
       path: '/users'
       fullPath: '/users/'
-      preLoaderRoute: typeof UsersIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedUsersIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/users/$id': {
-      id: '/users/$id'
+    '/_authenticated/users/$id': {
+      id: '/_authenticated/users/$id'
       path: '/users/$id'
       fullPath: '/users/$id'
-      preLoaderRoute: typeof UsersIdRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedUsersIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedCoursesRoute: typeof AuthenticatedCoursesRoute
+  AuthenticatedMyCoursesRoute: typeof AuthenticatedMyCoursesRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedUsersIdRoute: typeof AuthenticatedUsersIdRoute
+  AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedCoursesRoute: AuthenticatedCoursesRoute,
+  AuthenticatedMyCoursesRoute: AuthenticatedMyCoursesRoute,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedUsersIdRoute: AuthenticatedUsersIdRoute,
+  AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  CoursesRoute: CoursesRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   LoginRoute: LoginRoute,
-  MyCoursesRoute: MyCoursesRoute,
   RegisterRoute: RegisterRoute,
-  UsersIdRoute: UsersIdRoute,
-  UsersIndexRoute: UsersIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
