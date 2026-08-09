@@ -6,7 +6,7 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { UserCard, type Profile } from "@/components/UserCard";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const Route = createFileRoute("/users/")({
+export const Route = createFileRoute("/_authenticated/users/")({
   ssr: false,
   head: () => ({
     meta: [

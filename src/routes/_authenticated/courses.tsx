@@ -9,7 +9,7 @@ import { CourseCard, type Course } from "@/components/CourseCard";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const Route = createFileRoute("/courses")({
+export const Route = createFileRoute("/_authenticated/courses")({
   ssr: false,
   head: () => ({
     meta: [
