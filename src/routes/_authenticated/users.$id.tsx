@@ -8,7 +8,7 @@ import { CourseCard, type Course } from "@/components/CourseCard";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const Route = createFileRoute("/users/$id")({
+export const Route = createFileRoute("/_authenticated/users/$id")({
   ssr: false,
   head: () => ({
     meta: [
