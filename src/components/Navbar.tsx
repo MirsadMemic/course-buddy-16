@@ -28,10 +28,7 @@ export function Navbar() {
         { to: "/my-courses", label: "Moji kursevi" },
         { to: "/users", label: "Korisnici" },
       ]
-    : [
-        { to: "/", label: "Home" },
-        { to: "/courses", label: "Kursevi" },
-      ];
+    : [];
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-card/85 backdrop-blur">
