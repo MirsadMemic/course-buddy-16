@@ -1,7 +1,11 @@
 # 🎓 CourseTrack
-## 📸 Screenshot
+## 📸 Screenshots
 
-![CourseTrack Screenshot](./Screenshot 1.png)
+![Početna stranica](./screenshot-1.png)
+
+![Kursevi](./screenshot-2.png)
+
+![Korisnički profil](./screenshot-3.png)
 
 Moderna web aplikacija za upravljanje kursevima i polaznicima, izrađena pomoću **Reacta, TypeScripta i Supabasea**.
 
