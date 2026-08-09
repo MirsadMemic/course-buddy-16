@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 
 import { supabase } from "@/lib/supabase";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { UserCard, type Profile } from "@/components/UserCard";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -16,11 +15,7 @@ export const Route = createFileRoute("/_authenticated/users/")({
       { property: "og:description", content: "Spisak svih registrovanih polaznika." },
     ],
   }),
-  component: () => (
-    <ProtectedRoute>
-      <UsersPage />
-    </ProtectedRoute>
-  ),
+  component: UsersPage,
 });
 
 function UsersPage() {

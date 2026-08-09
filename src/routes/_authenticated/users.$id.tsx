@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Mail } from "lucide-react";
 
 import { supabase } from "@/lib/supabase";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { CourseCard, type Course } from "@/components/CourseCard";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -18,11 +17,7 @@ export const Route = createFileRoute("/_authenticated/users/$id")({
       { property: "og:description", content: "Podaci o polazniku i kursevi koje pohađa." },
     ],
   }),
-  component: () => (
-    <ProtectedRoute>
-      <UserDetailsPage />
-    </ProtectedRoute>
-  ),
+  component: UserDetailsPage,
 });
 
 function UserDetailsPage() {
